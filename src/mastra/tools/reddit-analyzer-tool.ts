@@ -9,7 +9,7 @@ export const redditAnalyzerTool = new Tool({
     postLimit: z.number().min(1).max(100).default(50).describe('取得する投稿数の上限'),
     timeRange: z.enum(['week', 'month', 'year', 'all']).default('year').describe('取得する投稿の期間')
   }),
-  execute: async ({ input }) => {
+  execute: async ({ context, input }) => {
     try {
       const { redditUsername, postLimit, timeRange } = input;
       
@@ -72,9 +72,9 @@ export const redditAnalyzerTool = new Tool({
       }, {});
       
       const topSubreddits = Object.entries(subredditFrequency)
-        .sort(([,a], [,b]) => b - a)
+        .sort(([,a], [,b]) => (b as number) - (a as number))
         .slice(0, 10)
-        .map(([subreddit, count]) => ({ subreddit, count }));
+        .map(([subreddit, count]) => ({ subreddit, count: count as number }));
       
       // キーワード抽出（簡易版）
       const allText = posts.map(post => `${post.title} ${post.content}`).join(' ');

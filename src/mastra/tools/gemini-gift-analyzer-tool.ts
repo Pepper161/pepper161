@@ -8,7 +8,7 @@ export const geminiGiftAnalyzerTool = new Tool({
     redditPosts: z.string().describe('Reddit投稿の結合テキスト'),
     username: z.string().describe('分析対象のRedditユーザー名'),
   }),
-  execute: async ({ input }) => {
+  execute: async ({ context, input }) => {
     try {
       const { redditPosts, username } = input;
       
