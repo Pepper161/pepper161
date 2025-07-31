@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(del \"E:\\internship\\Gakuiku-Hackathon\\Emotigift\\src\\mastra\\agents\\weather-agent.ts\")",
+      "Bash(npm ls:*)",
+      "Bash(npm run build:*)",
+      "Bash(touch:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": []
+  }
+}
