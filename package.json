@@ -7,12 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "mastra dev",
     "dev:client": "cd next-client && npm run dev",
-    "dev:old-client": "vite",
-    "build": "mastra build && cd next-client && npm run build",
+    "build": "cd next-client && npm run build",
     "build:client": "cd next-client && npm run build",
-    "build:old-client": "vite build",
-    "start": "mastra start",
-    "preview": "vite preview"
+    "build:mastra": "mastra build",
+    "start": "mastra start"
   },
   "keywords": [],
   "author": "",
@@ -27,12 +25,6 @@
     "@mastra/libsql": "^0.11.2",
     "@mastra/loggers": "^0.10.4",
     "@mastra/memory": "^0.11.5",
-    "@types/react": "^19.1.9",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^4.7.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "vite": "^7.0.6",
     "zod": "^3.25.76"
   },
   "devDependencies": {

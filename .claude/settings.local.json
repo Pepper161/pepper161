@@ -17,7 +17,10 @@
       "Bash(timeout 5 npm run dev)",
       "Bash(taskkill:*)",
       "Bash(npx create-next-app:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(del vite.config.ts)",
+      "Bash(del tsconfig.node.json)"
     ],
     "deny": []
   }

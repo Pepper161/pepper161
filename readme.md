@@ -1,183 +1,174 @@
-AIネイティブギフトプラットフォーム「Emotigift」：企画、技術スタック、及びAI駆動型開発ワークフローの要約
-I. エグゼクティブサマリー：Emotigiftプロジェクト概要
-本レポートは、AIネイティブなハイパーパーソナライズギフトプラットフォーム「Emotigift」の企画書から、「企画」および「技術スタック」セクションを要約し、プロジェクト推進のためのAI活用ワークフローを提案するものである。Emotigiftは、日本のZ世代およびミレニアル世代を主要ターゲットとし、贈り手の感情的な意図を具体的で意味のあるギフトに変換することをコアバリューとする。本企画は、日本のギフト市場における「イミ消費（意味消費）」「推し活消費」「ソーシャルギフト」という3つの主要な消費トレンドの交差点に戦略的に位置づけられる。技術的には、TypeScriptネイティブのAIフレームワークであるMastraを全面的に採用したマイクロサービスアーキテクチャを基盤とする。このアーキテクチャは、スケーラビリティ、耐障害性、開発のアジリティを確保する。さらに、本レポートでは、Mastraのワークフローエンジンを活用して、ユーザーフィードバックのリアルタイム反映からモデルの再学習、デプロイに至るまでを完全に自動化する、革新的なMLOps（機械学習基盤）パイプラインを提案する。これにより、アプリケーション開発とAIモデルのライフサイクル管理を単一の技術スタックで統合し、開発速度と運用効率を飛躍的に向上させることを目指す。
+# EmotiGift 🎁
 
-II. セクション1：企画
-A. コアバリュープロポジション：取引から感情の伝達へ
-Emotigiftの核心的な使命は、ギフトの背後にある「意図」に焦点を当てることで、従来の電子商取引の枠組みを超えることにある。本プラットフォームは、単に商品を検索・購入するツールではなく、会話型AIを用いてユーザーと受取人との関係性、贈る機会、そして伝えたい根本的な感情を深く理解する。このアプローチにより、ギフトを贈るという行為が、単純な金銭的取引から、意味のある感情的な交流へと昇華される。
+AI-native hyper-personalized gift platform targeting Japanese Z-generation and millennials. Transform emotional intentions into concrete, meaningful gifts through conversational AI.
 
-このコンセプトは、既存のギフトプラットフォーム、例えばGiftmallが提供する名入れなどのパーソナライズサービスや、TANPやLINEギフトが提供するカタログ閲覧やソーシャルギフト機能とは一線を画す。Emotigiftは、これらの機能を超え、深くコンサルテーションを行うAI主導の体験を提供することで、市場における独自の地位を確立する。
+## 🚀 Quick Start
 
-B. 市場分析と戦略的ポジショニング：現代消費トレンドの収束点
-ターゲットデモグラフィック
-本プロジェクトの主要ターゲットは、日本のデジタルネイティブ世代であるZ世代とミレニアル世代である。彼らは、Emotigiftの戦略基盤を形成する主要な消費トレンドの牽引役となっている。
+### Prerequisites
+- Node.js >= 20.9.0
+- Google AI API key for Gemini model
 
-消費トレンドの深掘り
-Emotigiftの成功は、以下の3つの現代的な消費トレンドを深く理解し、それらを融合させる能力にかかっている。
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/Pepper161/Emotigift.git
+cd Emotigift
 
-イミ消費（意味消費）
-これは単なるトレンドではなく、Z世代の価値観そのものである。彼らは自己のアイデンティティを反映し、社会貢献に繋がり、個人の価値観と合致する商品を積極的に求めている。SDGsへの関心の高さが示すように、自身の消費行動が社会や地球に良い影響を与えることに価値を見出す傾向が強い。Emotigiftはこの需要に応えるため、商品を倫理的な基準（例：サステナブル、フェアトレード）でキュレーションおよびタグ付けし、ユーザーが特定の価値観に合致するギフトを優先的に選択できる機能を提供する。
+# Install dependencies
+npm install
+cd next-client && npm install && cd ..
+```
 
-推し活消費
-「推し活」関連市場は、推定1,384万人の参加者を擁し、市場規模が3.5兆円に達すると予測される巨大かつ急成長中の経済圏である。この消費行動は、個人の情熱やアイデンティティと深く結びついた、極めて感情的なものである。Emotigiftは、この市場を直接のターゲットとし、公式ライセンス商品の提供や、ファンコミュニティで高い需要があるアクリルスタンドやキーホルダーなどのカスタマイズ可能なアイテムを取り揃える。搭載されるAIは、様々なファンダム、キャラクター、関連活動の微妙なニュアンスを理解するよう訓練される。
+### Environment Setup
+```bash
+# Set your Google AI API key (check agent configuration for exact variable name)
+export GEMINI_API_KEY=your_api_key_here
+```
 
-ソーシャルギフト
-物理的な住所を知らなくてもSNSを通じて手軽にギフトを贈れる利便性は、特に若年層の間でギフト文化の主流となりつつある。TANPの「eギフト」機能などが示すように、この手軽さは現代のコミュニケーションスタイルに完全に合致している。Emotigiftは「ソーシャルファースト」のプラットフォームとして設計され、LINEやInstagramなどの主要なメッセージングアプリと深く連携し、ギフト用URLをシームレスに共有できる機能を提供する。
+### Development
 
-これら3つのトレンドは独立して存在するのではなく、相互に作用し合うことで新たな市場機会を創出している。Emotigiftの独自の販売提案（USP）は、これらを個別に満たすのではなく、一つの体験として融合させる能力にある。例えば、あるユーザーが「アニメAが大好きで、環境問題にも関心がある友人」にギフトを贈りたいと考え、LINEで繋がっているが住所は知らない、という状況を想定する。従来のプラットフォームでは、ユーザーは「アニメA 環境に優しい グッズ」といったキーワードで手動検索する必要があり、多大な手間と商品知識が要求される。一方、Emotigiftの会話型AIは、「アニメAが好きで環境に関心がある友人向けのギフトを探している」という自然言語の要求を直接理解する。そして、すべての基準を満たす商品（例：リサイクル素材で作られた公式ライセンスキーホルダー）を推奨し、即座にソーシャルギフト用のリンクを生成する。このように、3つの主要トレンドをシームレスに融合させることで、既存のサービスでは提供されていない、強力で摩擦の少ないユーザー体験を創造する。
+**Start both servers simultaneously:**
 
-C. コアユーザーエクスペリエンス（UX）と機能セット
-会話型オンボーディングとコールドスタート問題の解決
-新規ユーザーは、空白の検索バーではなく、まず会話型AIアシスタントによって迎えられる。これにより、システムがユーザーに関するデータを全く持たない「コールドスタート問題」を即座に解決する。オンボーディングの対話は、ユーザーの人間関係、今後のイベント、個人の興味、さらには頻繁にギフトを贈る相手の好みなどを尋ねるガイド付きの発見プロセスとして設計される。この対話形式のデータ収集は、静的なフォーム入力よりも遥かにエンゲージメントが高い。このアプローチは、パーソナライゼーションと情報の段階的開示を重視するモバイルアプリのオンボーディングにおけるベストプラクティスと完全に一致する。
+1. **Backend (Mastra)** - Terminal 1:
+```bash
+npm run dev
+```
+*Starts Mastra development server on port 4111*
 
-ゲーミフィケーションによるプロフィール完成度の向上
-ハイパーパーソナライゼーションに必要な豊富なデータ提供をユーザーに促すため、プロフィール作成プロセスにはゲーミフィケーションの要素が導入される。LinkedInのプロフィール完成度バーのように、「あなたのギフトプロフィールは80%完了しました！」といったUI要素を用いて、ユーザーの達成意欲を刺激する。さらに、好みの追加、SNSアカウントの連携、推奨へのフィードバックといったアクションに対してバッジやポイントを付与することで、エンゲージメントを高める報酬ループを形成する。
+2. **Frontend (Next.js)** - Terminal 2:
+```bash
+npm run dev:client
+```
+*Starts Next.js development server on port 3000*
 
-説明可能なAI（XAI）レコメンデーションエンジン
-これはプラットフォームの中心的機能である。AIは、すべての推奨に対して簡潔な自然言語による説明を提供する。例えば、「ご友人が静かで心地よい夜を好み、フローラルな香りを楽しんでいるとのことから、北海道の小規模でサステナブルな工房で手作りされたこのラベンダーキャンドルセットをおすすめします」といった具体的な理由を提示する。この透明性は、アルゴリズムが「ブラックボックス」であることへの不信感を払拭し、ユーザーの信頼を構築する上で極めて重要である。この説明は、複雑なアルゴリズムとユーザーの理解との間の架け橋として機能する。UIは、ユーザーが説明自体に対して「この理由は正しい」「この理由で選ぶわけではない」といった直接的なフィードバックを提供できる機能を備え、AIの推論能力を継続的に改善するための強力なフィードバックループを構築する。
+**Access the application:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:4111/api
+- Mastra Playground: http://localhost:4111
 
-高度なパーソナライゼーションとソーシャルデリバリー
-プラットフォームは、消費者に高く評価されている名入れやメッセージ刻印、カスタムパッケージングといった高度なパーソナライズオプションを提供する。決済プロセスはソーシャルギフト機能とシームレスに統合されており、ユーザーはあらゆるメッセージングアプリを通じてURLを送信できる。受取人はそのURLから安全に配送先住所を入力し、必要に応じて商品の色やサイズを選択することも可能である。
+### Production Build
+```bash
+# Build both backend and frontend
+npm run build
 
-III. セクション2：技術スタック
-A. システムアーキテクチャ：ポリグロット・マイクロサービスアプローチ
-基本方針
-高いスケーラビリティ、耐障害性（一つのサービスの障害がシステム全体に波及しない）、そして開発のアジリティを確保するため、マイクロサービスアーキテクチャを採用する。このアプローチにより、各開発チームは独立してサービスを開発・デプロイでき、各サービスの要件に最適な技術（ポリグロット）を選択することが可能となる。
+# Start production server
+npm run start
+```
 
-課題と緩和策
-このアーキテクチャは、サービス間通信、データ一貫性、運用オーバーヘッドといった新たな複雑性を生じさせる。これらの課題に対しては、以下の戦略で対応する。
+## 🏗️ Architecture
 
-標準化された通信: APIゲートウェイを介し、ルーティング、認証、レート制限を一元管理し、サービス間通信にはJSONをシリアライゼーション形式とするREST APIを標準として採用する。
+### Current Implementation
+- **Frontend**: Next.js + React + TypeScript (port 3000)
+- **Backend**: Mastra framework (port 4111)
+- **Database**: Mixed approach - main instance uses `:memory:`, weather agent uses `file:../mastra.db`
+- **AI Model**: Google Gemini 2.0 Flash Experimental
 
-データ一貫性: 複数サービスにまたがるデータ取得クエリにはAPI Compositionパターンを適用し、クリティカルでないデータについては結果整合性を許容する。
+### Key Features
+- ✅ **Real Reddit Analysis**: Direct Reddit API integration for user post analysis
+- ✅ **AI-Powered Recommendations**: Concrete product suggestions with detailed explanations
+- ✅ **Shopping Integration**: Direct links to Amazon, Rakuten, Yahoo! Shopping
+- ✅ **Conversational Interface**: Natural language gift consultation
+- ✅ **Responsive Design**: Mobile-first UI with Tailwind CSS
 
-運用成熟度: CI/CDパイプライン、中央集権的なロギング、分散トレーシングを含む強力なDevOps文化を構築・維持することを必須要件とする。
+## 🛠️ Available Scripts
 
-Table 1: マイクロサービスの責務分割
-このテーブルは、各サービスの境界と責務を明確に定義するアーキテクチャの青写真として機能する。この明確化は、並行開発を可能にし、チーム間の依存関係を最小化するために不可欠である。各サービスの分割は、ビジネスドメインの論理的な境界に基づいている。ユーザー管理、推薦ロジック、注文処理、会話インターフェース、非同期タスクはそれぞれ独立した関心事であり、個別のサービスとして実装することが最も合理的である。
+### Development
+```bash
+npm run dev              # Start Mastra backend only
+npm run dev:client       # Start Next.js frontend only
+npm run dev:old-client   # Start legacy Vite client (for comparison)
+```
 
-サービス名	主要な責務	主要技術
-ユーザー＆プロフィールサービス	ユーザー登録、認証（JWT）、プロフィールデータ管理、プライバシー設定	Mastra (TypeScript), PostgreSQL, Redis (セッションキャッシュ用)
-レコメンデーションサービス	推薦モデルの管理、ギフト候補と説明文の生成	Mastra (TypeScript), Python (FastAPI for model serving), Vector DB, PostgreSQL
-ギフト＆オーダーサービス	商品カタログ、在庫、ショッピングカート、決済ゲートウェイ連携、注文処理ロジック	Mastra (TypeScript), PostgreSQL, Stripe API
-会話型AIゲートウェイ	チャット経由の全ユーザーインタラクション管理、会話状態管理、他サービスへの意図のルーティング	Mastra (Agent), WebSocket, Next.js (Frontend)
-通知＆メッセージングサービス	トランザクションメール、プッシュ通知、ソーシャルギフトリンクの送信	Mastra (Workflow), RabbitMQ, SendGrid API
+### Production
+```bash
+npm run build            # Build both backend and frontend
+npm run build:client     # Build Next.js frontend only
+npm run start            # Start production Mastra server
+npm run preview          # Preview Vite build (legacy)
+```
 
-Google スプレッドシートにエクスポート
-B. バックエンドフレームワーク：Mastraの全面採用
-戦略的選定
-主要なバックエンドフレームワークとしてMastraを選定する。ユーザーの要求には「Mastra」とあったが、調査の結果、これはPythonではなくTypeScriptベースのフレームワークであることが判明した。この点は技術選定において極めて重要である。Mastraは、Emotigiftのコア機能であるエージェント型アプリケーションや複雑なワークフローの構築に特化して設計されたAIネイティブなフレームワークであり、本プロジェクトの要件と完全に合致する。これにより、最新のJavaScriptスタック内でAI機能を迅速にプロトタイピングし、本番環境へ移行することが可能となる。
+## 📁 Project Structure
 
-コアコンポーネントの活用
-Mastra Agents: 会話型オンボーディングと推薦インターフェースの動力源となる。エージェントには指示、記憶、そして呼び出し可能な関数（ツール）を与えることができ、動的で複数ターンにわたるユーザー対話の処理に最適である。
+```
+Emotigift/
+├── src/mastra/                    # Mastra backend
+│   ├── agents/                    # AI agents
+│   │   └── gift-consultant-agent.ts
+│   ├── tools/                     # Mastra tools
+│   │   ├── reddit-analyzer-tool.ts
+│   │   └── gemini-gift-analyzer-tool.ts
+│   └── workflows/                 # Business workflows
+├── next-client/                   # Next.js frontend
+│   ├── src/
+│   │   ├── app/                   # App Router pages
+│   │   ├── components/            # React components
+│   │   └── types/                 # TypeScript definitions
+├── client/                        # Legacy Vite client (preserved)
+└── package.json                   # Root dependencies
+```
 
-Mastra Workflows: 複数ステップからなる全てのビジネスプロセスをオーケストレーションする。例えば、ギフト注文プロセスは「ギフト選択」→「パーソナライズ」→「決済処理」→「ソーシャルリンク生成」→「通知送信」という一連のワークフローとして定義される。.then()や.branch()といった明確な制御フローを持つグラフベースの構造は、プロセスの信頼性と追跡可能性を保証する。
+## 🤖 AI Features
 
-Mastra RAG: RAG（Retrieval-Augmented Generation）機能は、推薦理由の説明を生成する際に、その根拠を提供するために使用される。LLMエージェントは、商品情報やユーザーレビューが格納されたベクトルデータベースを検索し、関連性の高いコンテキストを取得した上で、パーソナライズされた推薦理由を生成する。
+### Reddit Analysis
+- Direct Reddit JSON API integration
+- User post analysis for personality insights
+- Subreddit activity pattern recognition
+- Interest categorization based on posting behavior
 
-C. レコメンデーションエンジンアーキテクチャ：カスケード型ハイブリッド知識ベースモデル
-ユーザーの複雑な意図（感情、関係性、価値観）を捉えるためには、単一の推薦アルゴリズムでは不十分である。そこで、多段階のカスケード型ハイブリッドモデルを構築する。このアーキテクチャは、単純な商品マッチングを超え、ニュアンスに富んだ意図ベースのギフト推薦というコアバリューを技術的に実現するものである。
+### Gift Recommendations
+- AI agent with explicit tool calling instructions
+- Structured JSON output with concrete product names
+- Real-time Reddit data processing
+- Explainable AI with detailed reasoning
 
-第1段階：知識ベース推薦（KBR）: ユーザーの初期入力は「クリエイティブな友人への楽しいギフト」といった抽象的な会話形式であるため、従来の協調フィルタリングは機能しない。最初のフィルターとしてKBRを用い、入力のセマンティックな意味を解釈し、制約（例：「クリエイティブ」「アート」タグを持つ商品に絞り込む）を適用する。これによりコールドスタート問題を回避する。
+### Shopping Integration
+- Smart search keyword generation
+- Direct links to major Japanese e-commerce sites
+- URL encoding and special character handling
+- Multi-platform product search (Amazon, Rakuten, Yahoo!)
 
-第2段階：協調・コンテンツベースフィルタリング: KBRによって絞り込まれた候補群に対し、アイテムの属性（ブランド、色など）を照合するコンテンツベースフィルタリングと、類似ユーザーの嗜好を利用する協調フィルタリングを適用し、ランキングの精度を高める。
+## 🔧 Technical Stack
 
-第3段階：LLMによる最終ランキングと説明生成: この多段階フィルタリング（カスケードアーキテクチャ）の最終段として、大規模言語モデル（LLM）を活用する。LLMは、上位にランクされた候補の中から最適なものを最終選定し、その選択理由を人間らしい説得力のある自然言語で生成する。これにより、XAI要件を満たす。
+| Category | Technology | Purpose |
+|----------|------------|---------|
+| Frontend | Next.js 15, React 19, TypeScript | Modern web application framework |
+| Backend | Mastra, Node.js | AI-native framework for agents and workflows |
+| Database | PostgreSQL, Vector DB | Polyglot persistence for structured and semantic data |
+| AI/ML | Google Gemini 2.0, Vercel AI SDK | Large language model and AI tooling |
+| Styling | Tailwind CSS | Utility-first CSS framework |
+| Development | TypeScript, ESLint | Type safety and code quality |
 
-このアーキテクチャは、必然的にポリグロットなデータ永続化モデルを要求する。
+## 🚨 Troubleshooting
 
-PostgreSQL: ユーザーアカウント、注文、商品在庫など、構造化されトランザクションの整合性が求められるデータに使用する。
+### Common Issues
 
-Vector Database (例: Pinecone, pgvector): 商品説明、ユーザーの好み、レビューなどの埋め込みベクトルを格納し、KBRおよびRAGコンポーネントに不可欠な高速セマンティック検索を実現する。
+1. **Port conflicts**: Ensure ports 3000 and 4111 are available
+2. **API key missing**: Set the GEMINI_API_KEY environment variable
+3. **Connection refused**: Start the Mastra backend first, then the frontend
+4. **Module not found**: Run `npm install` in both root and `next-client` directories
 
-D. APIとフロントエンドの連携：型安全な通信の保証
-API戦略とクライアント生成
-主要なバックエンドはMastraで構築するが、特定のデータ処理や機械学習モデルのサービングを行うマイクロサービスには**FastAPI (Python)**を採用する。その主な理由は、FastAPIがPythonコードからOpenAPI仕様を自動生成する機能においてクラス最高レベルであるためだ。この
+### Debug Logs
+Open browser developer tools and check console for:
+- `🔍 エージェントレスポンス:` - Agent response details
+- `📄 解析対象テキスト:` - Text being analyzed
+- `🎁 最終推薦結果:` - Final recommendation results
 
-openapi.jsonファイルは、OpenAPI Generatorによって、完全に型安全なTypeScriptクライアントSDKを自動生成するために使用される。このSDKは、Next.jsで構築されたフロントエンドや他のMastraサービスから利用される。
+## 📝 Development Notes
 
-この「FastAPI → OpenAPI → TypeScriptクライアント」という特定のワークフローは、マイクロサービス開発における一般的なバグの原因、すなわちAPIの契約不一致を排除する「超生産的」な開発ループを形成する。バックエンド開発者がFastAPIでデータモデルやエンドポイントを定義すると、常にコードと完全に同期したopenapi.jsonが生成される。CI/CDパイプラインがこの仕様を基にTypeScriptクライアントパッケージを自動的に生成・公開する。フロントエンド開発者はこのパッケージを更新するだけで、APIの不正な使用（例：誤ったデータ型の送信）があればコンパイル時にエラーとして検出できる。これにより、バグの発見がランタイムからコンパイルタイムへとシフトし、開発速度と信頼性が劇的に向上する。
+- The Vite dev server proxies `/api/*` requests to the Mastra backend at `localhost:4111`
+- The weather feature serves as an architectural template for the gift recommendation system
+- All Reddit API calls use public JSON endpoints without authentication
+- Gift recommendations include direct shopping links for immediate purchase
 
-E. 倫理的枠組みとデータプライバシー
-コンプライアンス
-システムは、日本の個人情報保護法（APPI）を厳格に遵守して設計される。特に、AIによるプロファイリングに関するガイドラインに注意を払い、データ利用目的が明確に伝達され、機微な情報が差別的な結果を生むために使用されないことを保証する。
+## 🤝 Contributing
 
-ユーザーコントロールと透明性
-ユーザー向けのプライバシーダッシュボードをコア機能として提供する。このダッシュボードでは、収集されているデータポイント（例：購入履歴、表明された好み）と、それらがどのように推奨に影響を与えているかを明確なデータビジュアライゼーションを用いて示す。ユーザーは、特定のデータポイントを削除したり、特定の種類のパーソナライゼーションをオプトアウトしたりする詳細な制御権を持つ。この透明性を通じて、ユーザーの信頼を醸成する。
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test both frontend and backend
+5. Submit a pull request
 
-Table 2: 技術スタックサマリー
-このテーブルは、プロジェクトで使用される全技術を一目で把握できるようにし、エンジニアリング、DevOps、リーダーシップチームのためのクイックリファレンスとして機能する。
+## 📄 License
 
-カテゴリ	技術／サービス	採用理由
-フロントエンド	Next.js (React), TypeScript	最新のパフォーマンス指向ウェブアプリケーションフレームワーク。
-バックエンド	Mastra (TypeScript), Node.js	エージェントとワークフローのためのAIネイティブフレームワーク。
-マイクロサービス	FastAPI (Python)	OpenAPI仕様の自動生成が必要な特定のデータ／MLサービス用。
-データベース	PostgreSQL, Vector DB (例: Pinecone)	トランザクションデータとセマンティックデータのためのポリグロット永続化。
-AI/ML	Vercel AI SDK, OpenAI/Anthropic APIs, Hugging Face	モデルルーティング、LLMアクセス、特化型モデルの利用。
-インフラストラクチャ	Docker, Kubernetes (GKE/EKS)	スケーラビリティのためのコンテナ化とオーケストレーション。
-CI/CD	GitHub Actions, OpenAPI Generator	自動テスト、クライアント生成、デプロイメント。
-可観測性	OpenTelemetry, Prometheus, Grafana	中央集権的なロギング、モニタリング、トレーシング。
-
-Google スプレッドシートにエクスポート
-IV. セクション3：提案されるAI駆動型プロジェクトワークフロー
-A. ワークフローの目的：MastraによるMLOps-as-Code
-手動でのモデル管理から脱却し、完全に自動化されたMLOpsライフサイクルを実装することを目指す。ここでの中心的な革新は、Mastraのワークフローエンジン自体をこのライフサイクルのオーケストレーターとして使用することである。これにより、アプリケーションのビジネスロジックとAIインフラ管理が、単一のコードベースのフレームワークに統合される。
-
-B. Mastraを活用したMLOpsパイプライン
-従来のMLOpsパイプラインは、AirflowやKubeflow Pipelinesのような専用のオーケストレーションツールを必要とする。しかし、Mastraは汎用性の高い強力なワークフローオーケストレーターでもある。この特性を利用し、データ検証、モデル学習、評価、デプロイといったMLOpsの各ステップをMastraの
-
-createStepコンポーネントとして定義する。そして、これらのステップをcreateWorkflow定義で連結することで、ビジネスプロセスと同様にMLOpsパイプラインを構築できる。このアプローチは、アプリケーション開発とMLOpsを統合する画期的なものである。これにより、ユーザー向けのAPIからバックエンドのモデル学習まで、システム全体を単一のモノレポ、単一の言語（TypeScript）、単一のフレームワーク（Mastra）で管理することが可能になる。これは、別々のツールやチームを必要とする従来のアプローチと比較して、複雑性を劇的に削減し、開発ベロシティを大幅に向上させる。
-
-ワークフロー1：リアルタイム・ユーザーフィードバックループ（イベント駆動型）
-トリガー: ユーザーからのフィードバック（例：推奨を「いいね」する、説明を修正する、ギフトを購入する）。
-
-Mastraワークフロー: ユーザーのアクションがメッセージキュー（例：RabbitMQ）にイベントとして発行される。このキューをサブスクライブするMastraワークフローが起動し、ユーザーの嗜好ベクトルをデータベース上でほぼリアルタイムに更新する一連のステップを実行する。これにより、ユーザーの次のインタラクションが即座に改善される。
-
-ワークフロー2：モデル再学習とデプロイの自動化（スケジュール実行型）
-トリガー: 定期実行ジョブ（例：毎週実行）。
-
-Mastraワークフロー:
-
-ingestDataStep: 直近1週間の集計済みユーザーフィードバックデータを収集する。
-
-validateDataStep: zodのようなライブラリを用いてデータの品質を検証する。
-
-triggerRetrainingStep: Google Vertex AIのようなマネージドMLサービスに対し、新しいデータを用いた学習ジョブを開始するAPIコールを行う。このステップでは、Mastraの
-
-.suspend()と.resume()機能を利用して、長時間実行される学習ジョブの完了を待機する。
-
-evaluateModelStep: 新しく学習されたモデルの性能を、現在の本番モデルとホールドアウトデータセットで比較評価する。
-
-deploymentBranchStep: 評価結果をチェックする.branch()ステップ。新モデルが優れていればdeployModelStepへ、そうでなければlogAndAlertStepへと処理を分岐させる。
-
-ワークフロー3：インテリジェント商品カタログ取り込み（エージェントベース）
-トリガー: 定期的なチェック、または提携ECプラットフォームからのWebhook。
-
-Mastraエージェントワークフロー: 商品カタログを最新の状態に保つ任務を負ったAIエージェントがワークフローを実行する。
-
-エージェントはweb-scrapingまたはapi-callツールを使用して新商品を検出する。
-
-新商品ごとにLLMを呼び出し、商品のタイトルと説明から豊富な説明タグと要約を生成する。
-
-埋め込みモデルを呼び出し、商品のベクトル表現を作成する。
-
-最後にupsertToVectorDBツールを実行し、新商品をレコメンデーションエンジンの知識ベースに追加する。
-
-C. 実装詳細とツール
-Table 3: AIワークフローコンポーネント詳細
-このテーブルは、各ワークフローの技術的な仕様を詳細に定義し、エンジニアリングチームが明確な実装計画を立てることを可能にする。
-
-ワークフロー	ステップID	トリガー	入力	Mastraコンポーネント	出力／副作用
-再学習	triggerRetrainingStep	スケジュール（週次）	クリーンなデータパス	Vertex AIへのAPIコールを含むcreateStep	学習ジョブID
-再学習	deploymentBranchStep	evaluateModelStepの完了	評価メトリクス	.branch()	deployModelStepまたはlogAndAlertStepへのルーティング
-フィードバック	updateUserVector	イベント (user.feedback.received)	UserID, FeedbackData	createStep	PostgreSQL/Vector DBのユーザーベクトル更新
-カタログ	ingestNewProduct	Webhook／スケジュール	商品URL/データ	ツールを持つAgent	データベースへの新商品登録
-
-Google スプレッドシートにエクスポート
-V. 結論
-本レポートで要約された「Emotigift」プロジェクトは、単なる電子商取引プラットフォームではなく、日本の現代的な消費者トレンドの合流点を捉えるために戦略的に設計された、AIネイティブなサービスである。その核心は、会話型AIを通じてユーザーの感情的な意図を理解し、それを意味のあるギフトへと変換する能力にある。
-
-技術的な観点から見ると、TypeScriptベースのAIフレームワークMastraを全面的に採用したマイクロサービスアーキテクチャは、スケーラビリティとアジリティを提供するだけでなく、本プロジェクトの最も革新的な側面を実現する基盤となる。すなわち、Mastraのワークフローエンジンを、アプリケーションのビジネスロジックとMLOpsパイプラインの両方をオーケストレーションするために活用する提案である。このアプローチは、アプリケーション開発とAIモデルのライフサイクル管理を単一の技術スタックに統合し、開発の複雑性を大幅に低減させると同時に、市場の変化に迅速に対応できる継続的な改善サイクルを自動化する。
-
-この企画と技術スタックの組み合わせは、Emotigiftに、開発速度、スケーラビリティ、そして長期的な保守性の面で、市場における持続的な競争優位性をもたらすものである。
+This project is part of the Gakuiku Hackathon and is intended for educational and demonstration purposes.
 
