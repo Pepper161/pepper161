@@ -7,9 +7,14 @@ interface GiftRecommendationsProps {
   onBackToForm: () => void
 }
 
-// 商品名を検索しやすいキーワードに変換
-const generateSearchKeywords = (productName: string): string => {
-  // 【】や特殊文字を除去し、検索しやすい形に変換
+// 商品名を検索しやすいキーワードに変換（AIの最適化されたキーワードを優先使用）
+const generateSearchKeywords = (productName: string, amazonKeywords?: string): string => {
+  // AIが生成したamazon_keywordsがある場合は優先的に使用
+  if (amazonKeywords && amazonKeywords.trim()) {
+    return amazonKeywords.trim();
+  }
+  
+  // フォールバック: 【】や特殊文字を除去し、検索しやすい形に変換
   return productName
     .replace(/【.*?】/g, '') // 【】を削除
     .replace(/[（）()]/g, ' ') // 括弧を空白に
@@ -56,6 +61,19 @@ export const GiftRecommendations = ({ result, onBackToForm }: GiftRecommendation
             </div>
           </div>
         )}
+        
+        {result.personalityInsights.values && result.personalityInsights.values.length > 0 && (
+          <div className="mt-4">
+            <strong>大切にしている価値観:</strong>
+            <div className="mt-2">
+              {result.personalityInsights.values.map(value => (
+                <span key={value} className="bg-green-600 text-white px-3 py-1 rounded-full text-xs mx-1 mb-1 inline-block">
+                  {value}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div>
@@ -85,22 +103,22 @@ export const GiftRecommendations = ({ result, onBackToForm }: GiftRecommendation
             <div className="mb-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                 <div>
-                  <strong className="text-blue-600">価格:</strong> ¥{gift.price.toLocaleString()}
+                  <strong className="text-blue-600">価格:</strong> <span className="text-gray-700">¥{gift.price.toLocaleString()}</span>
                 </div>
                 <div>
-                  <strong className="text-blue-600">カテゴリ:</strong> {gift.category}
+                  <strong className="text-blue-600">カテゴリ:</strong> <span className="text-gray-700">{gift.category}</span>
                 </div>
               </div>
             </div>
             
             <div className="mb-4">
-              <p className="my-2 leading-relaxed">
+              <p className="my-2 leading-relaxed text-gray-700">
                 <strong className="text-gray-800">推薦理由:</strong><br />
-                {gift.reason}
+                <span className="text-gray-700">{gift.reason}</span>
               </p>
-              <p className="my-2 leading-relaxed">
+              <p className="my-2 leading-relaxed text-gray-700">
                 <strong className="text-gray-800">特別なポイント:</strong><br />
-                {gift.specialPoint}
+                <span className="text-gray-700">{gift.specialPoint}</span>
               </p>
             </div>
             
@@ -119,7 +137,7 @@ export const GiftRecommendations = ({ result, onBackToForm }: GiftRecommendation
             <div className="mt-4 pt-4 border-t border-gray-200">
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
-                  href={`https://www.amazon.co.jp/s?k=${encodeURIComponent(generateSearchKeywords(gift.name))}`}
+                  href={`https://www.amazon.co.jp/s?k=${encodeURIComponent(generateSearchKeywords(gift.name, gift.amazonKeywords))}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 text-sm font-medium"
@@ -128,7 +146,7 @@ export const GiftRecommendations = ({ result, onBackToForm }: GiftRecommendation
                   Amazonで探す
                 </a>
                 <a
-                  href={`https://search.rakuten.co.jp/search/mall/${encodeURIComponent(generateSearchKeywords(gift.name))}/`}
+                  href={`https://search.rakuten.co.jp/search/mall/${encodeURIComponent(generateSearchKeywords(gift.name, gift.amazonKeywords))}/`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-sm font-medium"
@@ -137,7 +155,7 @@ export const GiftRecommendations = ({ result, onBackToForm }: GiftRecommendation
                   楽天で探す
                 </a>
                 <a
-                  href={`https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(generateSearchKeywords(gift.name))}`}
+                  href={`https://shopping.yahoo.co.jp/search?p=${encodeURIComponent(generateSearchKeywords(gift.name, gift.amazonKeywords))}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm font-medium"
@@ -147,7 +165,7 @@ export const GiftRecommendations = ({ result, onBackToForm }: GiftRecommendation
                 </a>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                💡 <strong>検索キーワード:</strong> 「{generateSearchKeywords(gift.name)}」
+                💡 <strong>検索キーワード:</strong> 「{generateSearchKeywords(gift.name, gift.amazonKeywords)}」
                 <br />
                 ※外部サイトに遷移します。価格や在庫状況は各サイトでご確認ください。
               </p>

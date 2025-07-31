@@ -319,7 +319,8 @@ ${relationship ? `関係性: ${relationship}` : ''}
           category: gift.category || '一般',
           reason: gift.reason || 'AI分析に基づく推薦です',
           specialPoint: gift.special_point || '相手の興味に合わせて選ばれました',
-          tags: [gift.category || 'AI推薦', gift.where_to_buy || 'オンライン']
+          tags: [gift.category || 'AI推薦', gift.amazon_keywords || 'オンライン'],
+          amazonKeywords: gift.amazon_keywords || gift.name || `推薦プレゼント${index + 1}`
         }));
 
         return {
@@ -332,7 +333,8 @@ ${relationship ? `関係性: ${relationship}` : ''}
           personalityInsights: {
             topInterests: jsonData.user_profile?.interests || ['Reddit', 'オンラインコミュニティ'],
             personalityTraits: jsonData.user_profile?.personality_traits || ['ソーシャル', '好奇心旺盛'],
-            keySubreddits: (jsonData.user_profile?.key_subreddits || []).map((sub: string) => ({ subreddit: sub, count: 1 }))
+            keySubreddits: (jsonData.user_profile?.key_subreddits || []).map((sub: string) => ({ subreddit: sub, count: 1 })),
+            values: jsonData.user_profile?.values || ['つながり', '学び']
           },
           giftRecommendations,
           shareableUrl: `#reddit-analysis-${username}`

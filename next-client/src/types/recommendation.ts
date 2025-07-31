@@ -7,6 +7,7 @@ export interface GiftRecommendation {
   reason: string
   specialPoint: string
   tags: string[]
+  amazonKeywords?: string
 }
 
 export interface RecommendationResult {
@@ -20,6 +21,7 @@ export interface RecommendationResult {
     topInterests: string[]
     personalityTraits: string[]
     keySubreddits: Array<{ subreddit: string; count: number }>
+    values?: string[]
   }
   giftRecommendations: GiftRecommendation[]
   shareableUrl: string

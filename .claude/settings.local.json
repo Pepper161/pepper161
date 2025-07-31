@@ -20,7 +20,8 @@
       "Bash(git add:*)",
       "Bash(git push:*)",
       "Bash(del vite.config.ts)",
-      "Bash(del tsconfig.node.json)"
+      "Bash(del tsconfig.node.json)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
