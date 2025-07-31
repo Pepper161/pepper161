@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "mastra dev",
-    "dev:client": "vite",
-    "build": "mastra build && vite build",
-    "build:client": "vite build",
+    "dev:client": "cd next-client && npm run dev",
+    "dev:old-client": "vite",
+    "build": "mastra build && cd next-client && npm run build",
+    "build:client": "cd next-client && npm run build",
+    "build:old-client": "vite build",
     "start": "mastra start",
     "preview": "vite preview"
   },

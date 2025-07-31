@@ -10,7 +10,14 @@
       "Bash(touch:*)",
       "Bash(npm run dev:*)",
       "Bash(npx tsc:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:mastra.ai)",
+      "Bash(timeout 10 npm run dev)",
+      "Bash(tasklist:*)",
+      "Bash(timeout 5 npm run dev)",
+      "Bash(taskkill:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

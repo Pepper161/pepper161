@@ -17,7 +17,13 @@ const fetchRedditDataStep = new LegacyStep({
     analysisData: z.any().optional(),
     error: z.string().optional(),
   }),
-  execute: async ({ context }) => {
+  execute: async ({ context }): Promise<{
+    success: boolean;
+    username?: string;
+    combinedPostText?: string;
+    analysisData?: any;
+    error?: string;
+  }> => {
     const triggerData = context.getStepResult('trigger');
     const redditUsername = triggerData?.redditUsername;
     const postLimit = triggerData?.postLimit || 50;
@@ -30,8 +36,7 @@ const fetchRedditDataStep = new LegacyStep({
     }
 
     const result = await redditAnalyzerTool.execute({
-      context,
-      input: {
+      context: {
         redditUsername,
         postLimit,
         timeRange: 'year' as const
@@ -53,7 +58,14 @@ const analyzeWithGeminiStep = new LegacyStep({
     error: z.string().optional(),
     redditError: z.string().optional(),
   }),
-  execute: async ({ context }) => {
+  execute: async ({ context }): Promise<{
+    success: boolean;
+    username?: string;
+    userProfile?: any;
+    giftRecommendations?: any;
+    error?: string;
+    redditError?: string;
+  }> => {
     const redditResult = context.getStepResult(fetchRedditDataStep);
     
     // Reddit取得が失敗した場合はエラーを返す
@@ -66,8 +78,7 @@ const analyzeWithGeminiStep = new LegacyStep({
     }
     
     const result = await geminiGiftAnalyzerTool.execute({
-      context,
-      input: {
+      context: {
         redditPosts: redditResult.combinedPostText,
         username: redditResult.username
       }

@@ -19,6 +19,7 @@ interface AnalysisResult {
   userProfile?: UserProfile;
   giftRecommendations?: GiftRecommendation[];
   error?: string;
+  redditError?: string;
 }
 
 const RedditGiftAnalyzer: React.FC = () => {

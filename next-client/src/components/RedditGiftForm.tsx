@@ -1,5 +1,7 @@
+'use client'
+
 import { useState } from 'react'
-import { RecommendationResult } from '../App'
+import { RecommendationResult } from '../types/recommendation'
 
 interface RedditGiftFormProps {
   onRecommendationStart: () => void
@@ -24,67 +26,54 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
     onRecommendationStart()
 
     try {
-      // レガシーワークフローを呼び出し
-      const response = await fetch('/api/workflows/reddit-gemini-gift-workflow', {
+      // エージェント経由でReddit分析を実行
+      const response = await fetch('/api/agents/birthdayGiftAgent/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          redditUsername: redditUsername.trim(),
-          postLimit: 50
+          messages: [
+            {
+              role: 'user',
+              content: `redditAnalyzerToolを使用してRedditユーザー「${redditUsername.trim()}」の投稿を分析し、実際の投稿内容に基づいて誕生日プレゼントを3つ提案してください。
+
+分析対象: Redditユーザー名「${redditUsername.trim()}」
+予算範囲: ${budget.min}円〜${budget.max}円
+${relationship ? `関係性: ${relationship}` : ''}
+
+必ず以下の手順で実行してください：
+1. redditAnalyzerToolを呼び出してユーザー「${redditUsername.trim()}」の投稿を取得
+2. 投稿内容を詳細分析
+3. 実在する商品名を含む具体的なプレゼント3つをJSON形式で提案
+
+ツールを使用して実際のReddit投稿データを取得してから回答してください。`
+            }
+          ]
         }),
-      })
+      });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         throw new Error(errorData.error || `分析に失敗しました (${response.status})`)
       }
 
-      const workflowResult = await response.json()
+      const agentResult = await response.json()
       
-      // レガシーワークフローの結果構造を処理
-      let finalResult;
-      if (workflowResult.results && workflowResult.results.analyzeWithGemini) {
-        const geminiStep = workflowResult.results.analyzeWithGemini;
-        if (geminiStep.status === 'success') {
-          finalResult = geminiStep.output;
-        } else {
-          throw new Error(geminiStep.error || 'Gemini分析に失敗しました');
-        }
-      } else {
-        finalResult = workflowResult;
+      // デバッグ: エージェントのレスポンスをログ出力
+      console.log('🔍 エージェントレスポンス:', agentResult);
+      
+      // エージェントのテキスト結果を解析して構造化データに変換
+      const text = agentResult.text || agentResult.content || agentResult.message || '';
+      console.log('📄 解析対象テキスト:', text.substring(0, 500) + '...');
+      
+      if (!text) {
+        throw new Error('エージェントからテキスト応答を取得できませんでした');
       }
       
-      if (!finalResult.success) {
-        throw new Error(finalResult.error || '分析に失敗しました')
-      }
-
-      // Gemini AIワークフローの結果をReactコンポーネント用に変換
-      const result: RecommendationResult = {
-        username: finalResult.username || redditUsername.trim(),
-        summary: {
-          totalRecommendations: finalResult.giftRecommendations?.length || 3,
-          confidenceScore: 0.85, // デフォルト値
-          analysisDate: new Date().toISOString().split('T')[0]
-        },
-        personalityInsights: {
-          topInterests: finalResult.userProfile?.interests || ['Reddit', 'オンラインコミュニティ'],
-          personalityTraits: finalResult.userProfile?.personality_traits || ['ソーシャル', '好奇心旺盛'],
-          keySubreddits: [] // この情報は基本分析データから取得する必要があります
-        },
-        giftRecommendations: (finalResult.giftRecommendations || []).map((gift: any, index: number) => ({
-          id: `gift-${index}`,
-          rank: index + 1,
-          name: gift.name,
-          price: 0, // 価格情報はモックデータに含まれていません
-          category: gift.category,
-          reason: gift.reason,
-          specialPoint: gift.reason, // 理由をspecialPointとしても使用
-          tags: [gift.category]
-        })),
-        shareableUrl: `#reddit-analysis-${redditUsername.trim()}`
-      }
+      // AIの返答をパースして推薦結果に変換
+      const result: RecommendationResult = parseAgentResponse(text, redditUsername.trim());
+      console.log('🎁 最終推薦結果:', result);
 
       onRecommendationComplete(result)
       
@@ -300,11 +289,148 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
     setBudget(preset)
   }
 
+  // エージェントのテキストレスポンスを構造化データに変換
+  const parseAgentResponse = (text: string, username: string): RecommendationResult => {
+    try {
+      // JSONブロックを抽出
+      let jsonString = '';
+      const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/);
+      if (jsonMatch) {
+        jsonString = jsonMatch[1];
+      } else {
+        // ```jsonブロックがない場合、{}で囲まれた部分を抽出
+        const simpleMatch = text.match(/\{[\s\S]*\}/);
+        if (simpleMatch) {
+          jsonString = simpleMatch[0];
+        }
+      }
+      
+      console.log('🔍 抽出されたJSON文字列:', jsonString);
+      
+      if (jsonString) {
+        const jsonData = JSON.parse(jsonString);
+        console.log('✅ JSON解析成功:', jsonData);
+        
+        const giftRecommendations = (jsonData.gift_recommendations || []).map((gift: any, index: number) => ({
+          id: `gift-${index}`,
+          rank: index + 1,
+          name: gift.name || `推薦プレゼント${index + 1}`,
+          price: parsePrice(gift.price_range) || Math.floor(Math.random() * (budget.max - budget.min) + budget.min),
+          category: gift.category || '一般',
+          reason: gift.reason || 'AI分析に基づく推薦です',
+          specialPoint: gift.special_point || '相手の興味に合わせて選ばれました',
+          tags: [gift.category || 'AI推薦', gift.where_to_buy || 'オンライン']
+        }));
+
+        return {
+          username,
+          summary: {
+            totalRecommendations: giftRecommendations.length,
+            confidenceScore: 0.9, // JSON解析成功時は高い信頼度
+            analysisDate: new Date().toISOString().split('T')[0]
+          },
+          personalityInsights: {
+            topInterests: jsonData.user_profile?.interests || ['Reddit', 'オンラインコミュニティ'],
+            personalityTraits: jsonData.user_profile?.personality_traits || ['ソーシャル', '好奇心旺盛'],
+            keySubreddits: (jsonData.user_profile?.key_subreddits || []).map((sub: string) => ({ subreddit: sub, count: 1 }))
+          },
+          giftRecommendations,
+          shareableUrl: `#reddit-analysis-${username}`
+        };
+      } else {
+        console.warn('❌ JSON文字列が抽出できませんでした');
+        throw new Error('JSON文字列が見つかりません');
+      }
+    } catch (error) {
+      console.warn('❌ JSON解析に失敗しました、フォールバック処理を実行:', error);
+      console.warn('解析対象テキスト:', text.substring(0, 200) + '...');
+    }
+
+    // フォールバック: テキストパース
+    const lines = text.split('\n').filter(line => line.trim());
+    const giftRecommendations = [];
+    let currentGift: any = null;
+    let giftIndex = 0;
+
+    for (const line of lines) {
+      if (line.includes('**プレゼント名**:') || line.includes('プレゼント名:') || line.includes('name":')) {
+        if (currentGift) {
+          giftRecommendations.push(currentGift);
+        }
+        currentGift = {
+          id: `gift-${giftIndex++}`,
+          rank: giftIndex,
+          name: extractValue(line) || `推薦プレゼント${giftIndex}`,
+          price: 5000,
+          category: '一般',
+          reason: '',
+          specialPoint: '',
+          tags: ['AI推薦']
+        };
+      } else if (currentGift && (line.includes('価格') || line.includes('price'))) {
+        const price = parsePrice(line);
+        if (price) currentGift.price = price;
+      } else if (currentGift && (line.includes('理由') || line.includes('reason'))) {
+        currentGift.reason = extractValue(line) || currentGift.reason;
+      } else if (currentGift && (line.includes('特別') || line.includes('special'))) {
+        currentGift.specialPoint = extractValue(line) || currentGift.specialPoint;
+      }
+    }
+
+    if (currentGift) {
+      giftRecommendations.push(currentGift);
+    }
+
+    // 最低3つの推薦を保証
+    while (giftRecommendations.length < 3) {
+      giftRecommendations.push({
+        id: `gift-default-${giftRecommendations.length}`,
+        rank: giftRecommendations.length + 1,
+        name: `おすすめプレゼント ${giftRecommendations.length + 1}`,
+        price: Math.floor(Math.random() * (budget.max - budget.min) + budget.min),
+        category: '一般',
+        reason: 'Reddit投稿の分析に基づいて選ばれました',
+        specialPoint: '相手の興味や価値観に合わせたギフトです',
+        tags: ['AI推薦', 'パーソナライズ']
+      });
+    }
+
+    return {
+      username,
+      summary: {
+        totalRecommendations: giftRecommendations.length,
+        confidenceScore: 0.7, // フォールバック時は低めの信頼度
+        analysisDate: new Date().toISOString().split('T')[0]
+      },
+      personalityInsights: {
+        topInterests: ['Reddit', 'オンラインコミュニティ'],
+        personalityTraits: ['ソーシャル', '好奇心旺盛'],
+        keySubreddits: []
+      },
+      giftRecommendations,
+      shareableUrl: `#reddit-analysis-${username}`
+    };
+  }
+
+  // ヘルパー関数
+  const extractValue = (line: string): string => {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex !== -1) {
+      return line.substring(colonIndex + 1).replace(/["""]/g, '').trim();
+    }
+    return '';
+  };
+
+  const parsePrice = (priceText: string): number => {
+    const matches = priceText.match(/(\d{1,3}(?:,\d{3})*)/);
+    return matches ? parseInt(matches[1].replace(/,/g, '')) : 0;
+  };
+
   return (
-    <div style={{ maxWidth: '500px', margin: '0 auto', padding: '20px' }}>
+    <div className="max-w-lg mx-auto p-5">
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="reddit-username" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
+        <div className="mb-5">
+          <label htmlFor="reddit-username" className="block mb-2 font-bold">
             📝 Redditユーザー名
           </label>
           <input
@@ -313,69 +439,51 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
             value={redditUsername}
             onChange={(e) => setRedditUsername(e.target.value)}
             placeholder="例: johndoe123"
-            style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #ddd',
-              borderRadius: '8px',
-              fontSize: '16px',
-              boxSizing: 'border-box'
-            }}
+            className="w-full p-3 border-2 border-gray-300 rounded-lg text-base box-border disabled:opacity-50"
             disabled={loading}
             required
             autoComplete="username"
           />
-          <p style={{ fontSize: '14px', color: '#666', marginTop: '4px', marginBottom: '0' }}>
+          <p className="text-sm text-gray-600 mt-1 mb-0">
             プレゼントを贈りたい相手のRedditユーザー名を入力してください
           </p>
         </div>
 
         {/* 予算設定セクション */}
-        <div style={{ marginBottom: '25px' }}>
-          <label style={{ display: 'block', marginBottom: '12px', fontWeight: 'bold' }}>
+        <div className="mb-6">
+          <label className="block mb-3 font-bold">
             💰 予算範囲
           </label>
           
           {/* プリセットボタン */}
-          <div style={{ marginBottom: '15px' }}>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div className="mb-4">
+            <div className="flex gap-2 flex-wrap">
               {budgetPresets.slice(0, 3).map((preset) => (
                 <button
                   key={preset.label}
                   type="button"
                   onClick={() => handlePresetBudget(preset)}
-                  style={{
-                    padding: '6px 12px',
-                    fontSize: '12px',
-                    border: '2px solid',
-                    borderColor: (budget.min === preset.min && budget.max === preset.max) ? '#646cff' : '#ddd',
-                    backgroundColor: (budget.min === preset.min && budget.max === preset.max) ? '#646cff' : 'white',
-                    color: (budget.min === preset.min && budget.max === preset.max) ? 'white' : '#333',
-                    borderRadius: '16px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
+                  className={`px-3 py-1.5 text-xs border-2 rounded-full cursor-pointer transition-all duration-200 ${
+                    (budget.min === preset.min && budget.max === preset.max) 
+                      ? 'border-blue-500 bg-blue-500 text-white' 
+                      : 'border-gray-300 bg-white text-gray-800'
+                  } disabled:opacity-50`}
                   disabled={loading}
                 >
                   {preset.label}
                 </button>
               ))}
             </div>
-            <p style={{ fontSize: '12px', color: '#666', margin: '5px 0 0 0' }}>
+            <p className="text-xs text-gray-600 mt-1 mb-0">
               クリックで簡単設定、または下で詳細調整
             </p>
           </div>
 
           {/* カスタム予算調整 */}
-          <div style={{ 
-            background: 'rgba(100, 108, 255, 0.05)', 
-            padding: '15px', 
-            borderRadius: '8px',
-            border: '1px solid rgba(100, 108, 255, 0.2)'
-          }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <label htmlFor="min-budget" style={{ display: 'block', fontSize: '14px', fontWeight: 'bold', marginBottom: '5px' }}>
+                <label htmlFor="min-budget" className="block text-sm font-bold mb-1">
                   最低額
                 </label>
                 <input
@@ -386,19 +494,12 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
                   min="500"
                   max="50000"
                   step="500"
-                  style={{
-                    width: '100%',
-                    padding: '8px',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    boxSizing: 'border-box'
-                  }}
+                  className="w-full p-2 border border-gray-300 rounded text-sm box-border disabled:opacity-50"
                   disabled={loading}
                 />
               </div>
               <div>
-                <label htmlFor="max-budget" style={{ display: 'block', fontSize: '14px', fontWeight: 'bold', marginBottom: '5px' }}>
+                <label htmlFor="max-budget" className="block text-sm font-bold mb-1">
                   最高額
                 </label>
                 <input
@@ -409,25 +510,18 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
                   min="1000"
                   max="50000"
                   step="500"
-                  style={{
-                    width: '100%',
-                    padding: '8px',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    boxSizing: 'border-box'
-                  }}
+                  className="w-full p-2 border border-gray-300 rounded text-sm box-border disabled:opacity-50"
                   disabled={loading}
                 />
               </div>
             </div>
             
-            <div style={{ textAlign: 'center', fontSize: '14px', color: '#646cff', fontWeight: 'bold' }}>
+            <div className="text-center text-sm text-blue-600 font-bold">
               ¥{budget.min.toLocaleString()} 〜 ¥{budget.max.toLocaleString()}
             </div>
             
             {budget.min >= budget.max && (
-              <p style={{ color: '#ff6b6b', fontSize: '12px', margin: '5px 0 0 0', textAlign: 'center' }}>
+              <p className="text-red-500 text-xs mt-1 mb-0 text-center">
                 最高額は最低額より大きく設定してください
               </p>
             )}
@@ -435,23 +529,15 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
         </div>
 
         {/* 関係性選択 */}
-        <div style={{ marginBottom: '25px' }}>
-          <label htmlFor="relationship" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>
+        <div className="mb-6">
+          <label htmlFor="relationship" className="block mb-2 font-bold">
             👥 関係性 (任意)
           </label>
           <select
             id="relationship"
             value={relationship}
             onChange={(e) => setRelationship(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '12px',
-              border: '2px solid #ddd',
-              borderRadius: '8px',
-              fontSize: '16px',
-              boxSizing: 'border-box',
-              backgroundColor: 'white'
-            }}
+            className="w-full p-3 border-2 border-gray-300 rounded-lg text-base box-border bg-white disabled:opacity-50"
             disabled={loading}
           >
             <option value="">選択してください</option>
@@ -462,29 +548,23 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
             <option value="同僚">同僚・職場の人</option>
             <option value="知人">知人・acquaintance</option>
           </select>
-          <p style={{ fontSize: '14px', color: '#666', marginTop: '4px', marginBottom: '0' }}>
+          <p className="text-sm text-gray-600 mt-1 mb-0">
             関係性に応じてより適切なプレゼントを提案します
           </p>
         </div>
+        
         <button
           type="submit"
           disabled={loading || !redditUsername.trim() || budget.min >= budget.max}
-          style={{
-            width: '100%',
-            padding: '15px',
-            backgroundColor: loading ? '#ccc' : '#646cff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            fontSize: '16px',
-            fontWeight: 'bold',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            transition: 'background-color 0.2s ease'
-          }}
+          className={`w-full p-4 text-white border-none rounded-lg text-base font-bold transition-colors duration-200 ${
+            loading 
+              ? 'bg-gray-400 cursor-not-allowed' 
+              : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
+          }`}
         >
           {loading ? (
             <>
-              <span className="loading-spinner" style={{ marginRight: '8px' }}></span>
+              <span className="mr-2">⏳</span>
               分析中...
             </>
           ) : (
@@ -494,8 +574,8 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
       </form>
       
       {loading && (
-        <div style={{ marginTop: '20px', textAlign: 'center', color: '#666' }}>
-          <p style={{ margin: '10px 0', fontSize: '14px' }}>
+        <div className="mt-5 text-center text-gray-600">
+          <p className="my-2 text-sm">
             Reddit投稿を分析してプレゼントを選定しています...<br />
             <small>この処理には数秒かかる場合があります</small>
           </p>

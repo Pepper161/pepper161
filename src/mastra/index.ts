@@ -3,11 +3,13 @@ import { Mastra } from '@mastra/core';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
 import { redditGeminiGiftWorkflow } from './workflows/reddit-gemini-gift-workflow';
+// import { modernRedditGiftWorkflow } from './workflows/modern-reddit-gift-workflow';
 import { birthdayGiftAgent } from './agents/gift-consultant-agent';
 
 export const mastra = new Mastra({
   workflows: { 
     redditGeminiGiftWorkflow
+    // modernRedditGiftWorkflow
   },
   agents: { 
     birthdayGiftAgent 

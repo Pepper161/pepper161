@@ -1,7 +1,7 @@
-import { Tool } from '@mastra/core/tools';
+import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 
-export const redditAnalyzerTool = new Tool({
+export const redditAnalyzerTool = createTool({
   id: 'reddit_analyzer_tool',
   description: 'Reddit JSON APIを使用してユーザーの投稿を取得し、その人の興味・価値観・性格を分析します',
   inputSchema: z.object({
@@ -9,9 +9,8 @@ export const redditAnalyzerTool = new Tool({
     postLimit: z.number().min(1).max(100).default(50).describe('取得する投稿数の上限'),
     timeRange: z.enum(['week', 'month', 'year', 'all']).default('year').describe('取得する投稿の期間')
   }),
-  execute: async ({ context, input }) => {
+  execute: async ({ context: { redditUsername, postLimit, timeRange } }) => {
     try {
-      const { redditUsername, postLimit, timeRange } = input;
       
       // Reddit JSON APIからユーザーの投稿を取得（supporterz-hackathonロジックを採用）
       const redditApiUrl = `https://www.reddit.com/user/${redditUsername}/submitted.json?limit=${postLimit}`;
