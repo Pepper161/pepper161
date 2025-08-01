@@ -27,7 +27,11 @@ export const RedditGiftForm = ({ onRecommendationStart, onRecommendationComplete
 
     try {
       // エージェント経由でReddit分析を実行
-      const response = await fetch('/api/agents/birthdayGiftAgent/generate', {
+      const apiBaseUrl = process.env.NODE_ENV === 'development' 
+        ? '/api' 
+        : process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
+      
+      const response = await fetch(`${apiBaseUrl}/agents/birthdayGiftAgent/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
