@@ -211,13 +211,13 @@ ${relationship ? `関係性: ${relationship}` : ''}
     return Array.from(traits).slice(0, 4)
   }
 
-  const generateGiftRecommendations = (analysis: { interests: string[]; subreddits: Array<{ subreddit: string; count: number }> }) => {
+  const generateGiftRecommendations = (analysis: { interests: string[]; subreddits: Array<{ subreddit: string; count: number }> }): GiftRecommendation[] => {
     const { interests, subreddits } = analysis
-    const recommendations = []
+    const recommendations: GiftRecommendation[] = []
     
     // プログラミング関連
     if (interests.includes('プログラミング')) {
-      recommendations.push({
+      const progGift: GiftRecommendation = {
         id: 'gift_prog',
         rank: recommendations.length + 1,
         name: 'プログラミング学習書「Clean Architecture」',
@@ -226,12 +226,13 @@ ${relationship ? `関係性: ${relationship}` : ''}
         reason: `${subreddits.find(s => ['programming', 'coding'].some(p => s.subreddit.toLowerCase().includes(p)))?.subreddit || 'プログラミング'}での活発な投稿から、技術向上への強い意欲が見受けられます。`,
         specialPoint: 'プログラミングスキルを次のレベルに押し上げる実用的なギフトです。',
         tags: ['プログラミング', '学習', '書籍']
-      })
+      };
+      recommendations.push(progGift);
     }
     
     // ゲーム関連
     if (interests.includes('ゲーム')) {
-      recommendations.push({
+      const gameGift: GiftRecommendation = {
         id: 'gift_game',
         rank: recommendations.length + 1,
         name: 'ゲーミングマウスパッド（大型）',
@@ -240,12 +241,13 @@ ${relationship ? `関係性: ${relationship}` : ''}
         reason: 'ゲーム関連の投稿から、PC環境の改善に興味があると推測されます。',
         specialPoint: 'ゲーム体験を向上させる実用的なアイテムです。',
         tags: ['ゲーム', 'PC用品', '実用的']
-      })
+      };
+      recommendations.push(gameGift);
     }
     
     // アート・デザイン関連
     if (interests.includes('アート・デザイン')) {
-      recommendations.push({
+      const artGift: GiftRecommendation = {
         id: 'gift_art',
         rank: recommendations.length + 1,
         name: 'デジタルペンタブレット',
@@ -254,12 +256,13 @@ ${relationship ? `関係性: ${relationship}` : ''}
         reason: 'アート関連のコミュニティでの活動から、創作への関心が伺えます。',
         specialPoint: 'デジタル創作の可能性を広げる特別なツールです。',
         tags: ['アート', 'デジタル', 'クリエイティブ']
-      })
+      };
+      recommendations.push(artGift);
     }
     
     // デフォルト推薦（興味が特定できない場合）
     if (recommendations.length === 0) {
-      recommendations.push({
+      const defaultGift: GiftRecommendation = {
         id: 'gift_default',
         rank: 1,
         name: 'プレミアムコーヒーセット',
@@ -268,7 +271,8 @@ ${relationship ? `関係性: ${relationship}` : ''}
         reason: 'Redditでの活動パターンから、集中力を高める飲み物が役立つと思われます。',
         specialPoint: '日常を豊かにする消耗品でありながら特別感のあるギフトです。',
         tags: ['コーヒー', '日常使い', 'プレミアム']
-      })
+      };
+      recommendations.push(defaultGift);
     }
     
     // 予算フィルタリング
@@ -391,7 +395,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
 
     // 最低3つの推薦を保証
     while (giftRecommendations.length < 3) {
-      giftRecommendations.push({
+      const defaultGift: GiftRecommendation = {
         id: `gift-default-${giftRecommendations.length}`,
         rank: giftRecommendations.length + 1,
         name: `おすすめプレゼント ${giftRecommendations.length + 1}`,
@@ -400,7 +404,8 @@ ${relationship ? `関係性: ${relationship}` : ''}
         reason: 'Reddit投稿の分析に基づいて選ばれました',
         specialPoint: '相手の興味や価値観に合わせたギフトです',
         tags: ['AI推薦', 'パーソナライズ']
-      });
+      };
+      giftRecommendations.push(defaultGift);
     }
 
     return {
