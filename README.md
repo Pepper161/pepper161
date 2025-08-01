@@ -1,31 +1,16 @@
-# Hi there, I'm Pepper! 👋
+<!-- Modern Header -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:8B5CF6,50:A855F7,100:C084FC&height=200&section=header&text=Hi%20there%20👋&fontSize=65&fontAlign=50&fontAlignY=40&fontColor=ffffff&animation=twinkling" />
 
-## 🎓 About Me
-- 🏫 **2nd Year Computer Science Student** at University of Nottingham Malaysia
-- 🚀 **AI/ML Enthusiast** passionate about building intelligent applications
-- 💡 **Full-Stack Developer** with experience in TypeScript, React, and Next.js
-- 🎯 **Currently Learning:** Advanced AI frameworks, microservices architecture, and Japanese market analysis
+<!-- Typing Animation -->
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=8B5CF6&center=true&vCenter=true&multiline=true&width=600&height=100&lines=Computer+Science+Student+%40+Nottingham;AI+%7C+ML+%7C+Full-Stack+Development;Building+AI+Solutions+for+Real+World" alt="Typing SVG" />
+</p>
 
-## 🛠️ Tech Stack
-
-### Languages
-![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
-
-### Frontend
-![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
-
-### AI/ML & Tools
-![Google Gemini](https://img.shields.io/badge/-Google_Gemini-4285F4?style=flat-square&logo=google&logoColor=white)
-![Mastra](https://img.shields.io/badge/-Mastra-FF6B6B?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K&logoColor=white)
-![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
-
-### Deployment
-![Vercel](https://img.shields.io/badge/-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
-![Git](https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white)
+<h2 align="center">💻 Skills</h2>
+<p align="center">
+  <img alt="my skills"
+    src="https://skillicons.dev/icons?theme=dark&perline=10&i=py,ts,js,react,nextjs,tailwind,nodejs,vercel,git,github" />
+</p>
 
 ## 🌟 Featured Project: EmotiGift
 
@@ -63,11 +48,23 @@ Development: Full-stack TypeScript with strict type safety
 - **Error Resilience**: Robust fallback mechanisms for API failures
 - **UX Optimization**: Japanese-first UI with cultural considerations
 
-## 📈 GitHub Stats
+<h2 align="center">📊 GitHub Statistics</h2>
 
-![Pepper's GitHub stats](https://github-readme-stats.vercel.app/api?username=Pepper161&show_icons=true&theme=radical)
+<!-- GitHub Stats Cards -->
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Pepper161&count_private=true&show_icons=true&include_all_commits=true&theme=gotham&hide_border=true" alt="GitHub Stats" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pepper161&theme=gotham&hide_border=true&layout=compact" alt="Top Languages" width="48%" />
+</p>
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Pepper161&layout=compact&theme=radical)
+<!-- Profile Summary Cards -->
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham" alt="Profile Details" />
+</p>
+
+<!-- GitHub Trophies -->
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=Pepper161&theme=gitdimmed&no-frame=true&margin-w=10" alt="GitHub Trophies" />
+</p>
 
 ## 🌱 Current Learning Journey
 
@@ -94,4 +91,9 @@ Development: Full-stack TypeScript with strict type safety
 
 ⭐ **"Building AI solutions that understand human emotions and cultural contexts"**
 
-![Profile Views](https://komarev.com/ghpvc/?username=Pepper161&color=brightgreen)
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=Pepper161&color=8B5CF6&style=flat-square" alt="Profile Views" />
+</p>
+
+<!-- Wave Footer -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:C084FC,50:A855F7,100:8B5CF6&height=120&section=footer" />
