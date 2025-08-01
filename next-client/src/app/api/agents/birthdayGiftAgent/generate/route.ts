@@ -116,12 +116,12 @@ async function fetchRedditPosts(username: string): Promise<string> {
       return `ユーザー「${username}」の公開投稿が見つかりませんでした。一般的な趣味を想定して推薦してください。`;
     }
 
-    const postTexts = posts.map((post: any) => {
+    const postTexts = posts.map((post: { data: Record<string, unknown> }) => {
       const postData = post.data;
-      return `Subreddit: r/${postData.subreddit}
-Title: ${postData.title}
-Content: ${postData.selftext || '(画像・リンク投稿)'}
-Score: ${postData.score}↑ Comments: ${postData.num_comments}💬
+      return `Subreddit: r/${postData.subreddit as string || 'unknown'}
+Title: ${postData.title as string || 'No title'}
+Content: ${postData.selftext as string || '(画像・リンク投稿)'}
+Score: ${postData.score as number || 0}↑ Comments: ${postData.num_comments as number || 0}💬
 ---`;
     }).join('\n');
 
