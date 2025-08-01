@@ -88,7 +88,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
       try {
         const fallbackResult = await performDirectRedditAnalysis(redditUsername.trim())
         onRecommendationComplete(fallbackResult)
-      } catch (fallbackError) {
+      } catch {
         onError(error instanceof Error ? error.message : '予期しないエラーが発生しました')
       }
     }
@@ -117,7 +117,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
     }
 
     // 投稿データを分析
-    const posts = redditData.data.children.map((child: any) => child.data)
+    const posts = redditData.data.children.map((child: { data: Record<string, unknown> }) => child.data)
     const analysis = analyzeRedditPosts(posts)
     
     return {
@@ -138,11 +138,12 @@ ${relationship ? `関係性: ${relationship}` : ''}
   }
 
   // Analyze Reddit posts and extract insights
-  const analyzeRedditPosts = (posts: any[]) => {
+  const analyzeRedditPosts = (posts: Record<string, unknown>[]) => {
     const subredditCount: Record<string, number> = {}
     
     posts.forEach(post => {
-      subredditCount[post.subreddit] = (subredditCount[post.subreddit] || 0) + 1
+      const subreddit = post.subreddit as string || 'unknown'
+      subredditCount[subreddit] = (subredditCount[subreddit] || 0) + 1
     })
 
     const topSubreddits = Object.entries(subredditCount)
@@ -161,7 +162,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
     }
   }
 
-  const categorizeInterests = (subreddits: any[]): string[] => {
+  const categorizeInterests = (subreddits: Array<{ subreddit: string; count: number }>): string[] => {
     const categories = new Set<string>()
     
     subreddits.forEach(({ subreddit }) => {
@@ -195,7 +196,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
     return Array.from(categories).slice(0, 5)
   }
 
-  const analyzePersonalityTraits = (posts: any[], subreddits: any[]): string[] => {
+  const analyzePersonalityTraits = (posts: Record<string, unknown>[], subreddits: Array<{ subreddit: string; count: number }>): string[] => {
     const traits = new Set<string>()
     
     if (posts.length > 20) traits.add('活発')
@@ -210,7 +211,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
     return Array.from(traits).slice(0, 4)
   }
 
-  const generateGiftRecommendations = (analysis: any) => {
+  const generateGiftRecommendations = (analysis: { interests: string[]; subreddits: Array<{ subreddit: string; count: number }> }) => {
     const { interests, subreddits } = analysis
     const recommendations = []
     
@@ -222,7 +223,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
         name: 'プログラミング学習書「Clean Architecture」',
         price: 4800,
         category: '書籍・学習',
-        reason: `${subreddits.find((s: any) => ['programming', 'coding'].some(p => s.subreddit.toLowerCase().includes(p)))?.subreddit || 'プログラミング'}での活発な投稿から、技術向上への強い意欲が見受けられます。`,
+        reason: `${subreddits.find(s => ['programming', 'coding'].some(p => s.subreddit.toLowerCase().includes(p)))?.subreddit || 'プログラミング'}での活発な投稿から、技術向上への強い意欲が見受けられます。`,
         specialPoint: 'プログラミングスキルを次のレベルに押し上げる実用的なギフトです。',
         tags: ['プログラミング', '学習', '書籍']
       })
@@ -315,16 +316,16 @@ ${relationship ? `関係性: ${relationship}` : ''}
         const jsonData = JSON.parse(jsonString);
         console.log('✅ JSON解析成功:', jsonData);
         
-        const giftRecommendations = (jsonData.gift_recommendations || []).map((gift: any, index: number) => ({
+        const giftRecommendations = (jsonData.gift_recommendations || []).map((gift: Record<string, unknown>, index: number) => ({
           id: `gift-${index}`,
           rank: index + 1,
-          name: gift.name || `推薦プレゼント${index + 1}`,
-          price: parsePrice(gift.price_range) || Math.floor(Math.random() * (budget.max - budget.min) + budget.min),
-          category: gift.category || '一般',
-          reason: gift.reason || 'AI分析に基づく推薦です',
-          specialPoint: gift.special_point || '相手の興味に合わせて選ばれました',
-          tags: [gift.category || 'AI推薦', gift.amazon_keywords || 'オンライン'],
-          amazonKeywords: gift.amazon_keywords || gift.name || `推薦プレゼント${index + 1}`
+          name: (gift.name as string) || `推薦プレゼント${index + 1}`,
+          price: parsePrice((gift.price_range as string) || '') || Math.floor(Math.random() * (budget.max - budget.min) + budget.min),
+          category: (gift.category as string) || '一般',
+          reason: (gift.reason as string) || 'AI分析に基づく推薦です',
+          specialPoint: (gift.special_point as string) || '相手の興味に合わせて選ばれました',
+          tags: [(gift.category as string) || 'AI推薦', (gift.amazon_keywords as string) || 'オンライン'],
+          amazonKeywords: (gift.amazon_keywords as string) || (gift.name as string) || `推薦プレゼント${index + 1}`
         }));
 
         return {
@@ -355,7 +356,7 @@ ${relationship ? `関係性: ${relationship}` : ''}
     // フォールバック: テキストパース
     const lines = text.split('\n').filter(line => line.trim());
     const giftRecommendations = [];
-    let currentGift: any = null;
+    let currentGift: Record<string, unknown> | null = null;
     let giftIndex = 0;
 
     for (const line of lines) {
