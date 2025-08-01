@@ -1,5 +1,18 @@
 {
-  "buildCommand": "cd next-client && npm install && npm run build",
-  "outputDirectory": "next-client/.next",
-  "installCommand": "npm install"
+  "version": 2,
+  "builds": [
+    {
+      "src": "next-client/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "zeroConfig": true
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/next-client/$1"
+    }
+  ]
 }
