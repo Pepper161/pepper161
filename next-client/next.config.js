@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Static export for Vercel deployment (for now, disable for development)
+  // output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true
+  },
   async rewrites() {
-    // 本番環境では外部APIへのプロキシは無効
+    // 開発環境でのみプロキシを有効化
     if (process.env.NODE_ENV === 'development') {
       return [
         {
@@ -12,11 +18,11 @@ const nextConfig = {
     }
     return []
   },
-  // Static export for Vercel deployment
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
   }
 }
 

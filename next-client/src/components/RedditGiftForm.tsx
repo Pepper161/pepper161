@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { RecommendationResult } from '../types/recommendation'
+import { RecommendationResult, GiftRecommendation } from '../types/recommendation'
 
 interface RedditGiftFormProps {
   onRecommendationStart: () => void
@@ -355,17 +355,18 @@ ${relationship ? `関係性: ${relationship}` : ''}
 
     // フォールバック: テキストパース
     const lines = text.split('\n').filter(line => line.trim());
-    const giftRecommendations = [];
-    let currentGift: Record<string, unknown> | null = null;
+    const giftRecommendations: GiftRecommendation[] = [];
+    let currentGift: Partial<GiftRecommendation> | null = null;
     let giftIndex = 0;
 
     for (const line of lines) {
       if (line.includes('**プレゼント名**:') || line.includes('プレゼント名:') || line.includes('name":')) {
-        if (currentGift) {
-          giftRecommendations.push(currentGift);
+        if (currentGift && currentGift.id && currentGift.rank && currentGift.name && currentGift.price !== undefined && currentGift.category && currentGift.reason !== undefined && currentGift.specialPoint !== undefined && currentGift.tags) {
+          giftRecommendations.push(currentGift as GiftRecommendation);
         }
+        giftIndex++;
         currentGift = {
-          id: `gift-${giftIndex++}`,
+          id: `gift-${giftIndex}`,
           rank: giftIndex,
           name: extractValue(line) || `推薦プレゼント${giftIndex}`,
           price: 5000,
@@ -384,8 +385,8 @@ ${relationship ? `関係性: ${relationship}` : ''}
       }
     }
 
-    if (currentGift) {
-      giftRecommendations.push(currentGift);
+    if (currentGift && currentGift.id && currentGift.rank && currentGift.name && currentGift.price !== undefined && currentGift.category && currentGift.reason !== undefined && currentGift.specialPoint !== undefined && currentGift.tags) {
+      giftRecommendations.push(currentGift as GiftRecommendation);
     }
 
     // 最低3つの推薦を保証
