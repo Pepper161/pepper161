@@ -25,6 +25,9 @@
     "@mastra/libsql": "^0.11.2",
     "@mastra/loggers": "^0.10.4",
     "@mastra/memory": "^0.11.5",
+    "next": "^15.4.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "zod": "^3.25.76"
   },
   "devDependencies": {
