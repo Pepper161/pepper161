@@ -9,7 +9,7 @@
 <h2 align="center">💻 Skills</h2>
 <p align="center">
   <img alt="my skills"
-    src="https://skillicons.dev/icons?theme=dark&perline=10&i=py,ts,js,react,nextjs,tailwind,nodejs,vercel,git,github" />
+    src="https://skillicons.dev/icons?theme=dark&perline=10&i=py,ts,js,c,java,haskell,php,react,nextjs,tailwind,nodejs,vercel,railway,git,github" />
 </p>
 
 ## 🌟 Featured Project: EmotiGift
