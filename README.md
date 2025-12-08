@@ -52,17 +52,29 @@ Development: Full-stack TypeScript with strict type safety
 
 
 
+
 <!-- GitHub Stats Cards -->
+
+
 <p align="center">
-  <img src="https://github-readme-stats-drab-theta-22.vercel.app/api?username=Pepper161&count_privateude_all_commits=true&show_icons=true&title_color=8B5CF6&icon_color=A855F7&text_color=C084FC&bg_color=0,0,0,0&hide_border=true&cache_seconds=1800
-  
-  <img src="https://github-readme-stats-drab-theta-22.vercel.app/api/top-langs/?username=Pepper161&layout=compact&title_color=8B5CF6&text_color=C084FC&bg_color=0,0,0,0&hide_border=true" alt="Top Languages" width
+  <img src="https://github-readme-stats-drab-theta-22.vercel.app/api?username=Pepper161&count_private=true&include_all_commits=true&show_icons=true&title_color=8B5CF6&icon_color=A855F7r=C084FC&bg_color=0,0,0,0&hide_border=true" />
+</p>
+
+
+
+<!-- Profile Summary Cards -->
 <p align="center">
-  https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham" alt="Profile Details" />
 </p>
 
 <!-- GitHub Trophies -->
 <p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=Pepper161&theme=gitdimmed&no-frame=true&margin-w=10" alt="GitHub Trophies" />
+</p>
+
+
+
+
 
 
 
