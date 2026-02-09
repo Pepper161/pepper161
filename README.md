@@ -90,10 +90,11 @@ and operational impact before integrating it into a product.
 
 ## 📊 GitHub Activity
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Pepper161&show_icons=true&count_private=true&theme=gotham&hide_border=true" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pepper161&layout=compact&theme=gotham&hide_border=true" width="48%" />
-</p>
+- Profile: [github.com/Pepper161](https://github.com/Pepper161)
+- Repositories: [github.com/Pepper161?tab=repositories](https://github.com/Pepper161?tab=repositories)
+- Contributions: [github.com/Pepper161](https://github.com/Pepper161)
+- Stars: [github.com/Pepper161?tab=stars](https://github.com/Pepper161?tab=stars)
+- Followers: [github.com/Pepper161?tab=followers](https://github.com/Pepper161?tab=followers)
 
 ---
 
