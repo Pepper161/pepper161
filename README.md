@@ -46,10 +46,11 @@ balancing usability with operational simplicity.
 
 ---
 
-## 🛠 Tech Stack
-
+<!-- Skills -->
+<h2 align="center">💻 Skills</h2>
 <p align="center">
-  <img src="https://skillicons.dev/icons?theme=dark&perline=9&i=ts,js,python,java,c,react,nextjs,tailwind,nodejs,firebase,postgres,git,github,vercel" />
+  <img alt="my skills"
+    src="https://skillicons.dev/icons?theme=dark&perline=12&i=py,r,js,react,nextjs,ts,astro,php,html,css,git,github,gitlab,docker,aws,cloudflare,mysql,firebase,supabase,vercel,wordpress,figma,apple,windows,linux,latex,npm,tailwindcss,pytorch,sklearn" />
 </p>
 
 ### Languages
@@ -88,13 +89,23 @@ and operational impact before integrating it into a product.
 
 ---
 
-## 📊 GitHub Activity
+<h2 align="center">📊 GitHub Statistics</h2>
 
-- Profile: [github.com/Pepper161](https://github.com/Pepper161)
-- Repositories: [github.com/Pepper161?tab=repositories](https://github.com/Pepper161?tab=repositories)
-- Contributions: [github.com/Pepper161](https://github.com/Pepper161)
-- Stars: [github.com/Pepper161?tab=stars](https://github.com/Pepper161?tab=stars)
-- Followers: [github.com/Pepper161?tab=followers](https://github.com/Pepper161?tab=followers)
+<!-- GitHub Stats Cards -->
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Pepper161&count_private=true&show_icons=true&include_all_commits=true&theme=gotham&hide_border=true" alt="GitHub Stats" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pepper161&theme=gotham&hide_border=true&layout=compact" alt="Top Languages" width="48%" />
+</p>
+
+<!-- Profile Summary Cards -->
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham" alt="Profile Details" />
+</p>
+
+<!-- GitHub Trophies -->
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=Pepper161&theme=gitdimmed&no-frame=true&margin-w=10" alt="GitHub Trophies" />
+</p>
 
 ---
 
