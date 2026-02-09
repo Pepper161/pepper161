@@ -102,7 +102,10 @@ and operational impact before integrating it into a product.
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham" alt="Profile Details" />
 </p>
 
-<!-- Trophy will be re-enabled after GITHUB_TOKEN is configured on self-hosted github-profile-trophy -->
+<!-- GitHub Trophies (self-hosted) -->
+<p align="center">
+  <img src="https://github-profile-trophy-iota-green.vercel.app/?username=Pepper161&theme=gitdimmed&no-frame=true&margin-w=10" alt="GitHub Trophies" />
+</p>
 
 ---
 
