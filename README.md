@@ -91,10 +91,10 @@ and operational impact before integrating it into a product.
 
 <h2 align="center">📊 GitHub Statistics</h2>
 
-<!-- GitHub Stats Cards -->
+<!-- Summary Cards (stable fallback for stats/languages) -->
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Pepper161&count_private=true&show_icons=true&include_all_commits=true&theme=gotham&hide_border=true" alt="GitHub Stats" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pepper161&theme=gotham&hide_border=true&layout=compact" alt="Top Languages" width="48%" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Pepper161&theme=gotham" alt="GitHub Stats" width="48%" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Pepper161&theme=gotham" alt="Top Languages" width="48%" />
 </p>
 
 <!-- Profile Summary Cards -->
@@ -102,9 +102,10 @@ and operational impact before integrating it into a product.
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham" alt="Profile Details" />
 </p>
 
-<!-- GitHub Trophies -->
+<!-- Additional activity cards -->
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Pepper161&theme=gitdimmed&no-frame=true&margin-w=10" alt="GitHub Trophies" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Pepper161&theme=gotham" alt="Most Commit Language" width="48%" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Pepper161&theme=gotham&utcOffset=8" alt="Productive Time" width="48%" />
 </p>
 
 ---
