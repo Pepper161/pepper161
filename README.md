@@ -1,111 +1,91 @@
-<!-- Modern Header -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:8B5CF6,50:A855F7,100:C084FC&height=200&section=header&text=Hi%20there%20👋&fontSize=65&fontAlign=50&fontAlignY=40&fontColor=ffffff&animation=twinkling" />
+## Hi, I'm Pepper
 
-<!-- Typing Animation -->
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=8B5CF6&center=true&vCenter=true&multiline=true&width=600&height=100&lines=Computer+Science+Student+%40+Nottingham;AI+%7C+ML+%7C+Full-Stack+Development;Building+AI+Solutions+for+Real+World" alt="Typing SVG" />
-</p>
+A Computer Science student and product-oriented full-stack developer.
 
-<h2 align="center">💻 Skills</h2>
-<p align="center">
-  <img alt="my skills"
-    src="https://skillicons.dev/icons?theme=dark&perline=10&i=py,ts,js,c,java,haskell,php,react,nextjs,tailwind,nodejs,vercel,railway,git,github" />
-</p>
+I focus on building early-stage products with real-world constraints in mind, not just how to implement features, but how they are operated, maintained, and sustained over time.
 
-## 🌟 Featured Project: EmotiGift
-
-### 🎁 AI-Native Hyper-Personalized Gift Platform
-
-EmotiGift is an innovative AI-powered gift recommendation platform that transforms emotional intentions into meaningful gifts through conversational AI, specifically targeting the Japanese Z-generation and millennial market.
-
-**🔗 [View Live Demo](https://emotigift-ai.vercel.app)**
-
-#### 🚀 Key Features
-- **🤖 Reddit Profile Analysis**: Analyzes Reddit user posts to understand personality and interests
-- **🎯 AI-Powered Recommendations**: Uses Google Gemini 2.0 Flash to generate personalized gift suggestions
-- **🛒 Smart Shopping Integration**: Direct links to Amazon, Rakuten, and Yahoo! Shopping Japan
-- **💰 Budget-Aware Filtering**: Customizable price ranges from ¥500 to ¥50,000
-- **🇯🇵 Japanese Market Focus**: Tailored for "Imi-shohi" (meaning consumption) and "Oshi-katsu" culture
-
-#### 🛠️ Technical Architecture
-```
-Frontend: Next.js 15 + TypeScript + Tailwind CSS
-AI Engine: Google Gemini 2.0 Flash Experimental
-APIs: Reddit JSON API for user analysis
-Deployment: Vercel with serverless functions
-Development: Full-stack TypeScript with strict type safety
-```
-
-#### 📊 Business Impact
-- Targets Japan's **¥3.5 trillion fan culture market**
-- Addresses the growing trend of **meaning-based consumption**
-- Bridges emotional gifting with AI-driven personalization
-
-#### 🔧 Technical Highlights
-- **Type-Safe Development**: Comprehensive TypeScript implementation with zero `any` types
-- **Serverless Architecture**: Next.js API routes for scalable deployment
-- **AI Prompt Engineering**: Advanced prompt design for structured JSON output
-- **Error Resilience**: Robust fallback mechanisms for API failures
-- **UX Optimization**: Japanese-first UI with cultural considerations
-
-<h2 align="center">📊 GitHub Statistics</h2>
-
-
-
-
-<!-- GitHub Stats Cards -->
-
-
-<p align="center">
-  <img src="https://github-readme-stats-drab-theta-22.vercel.app/api?username=Pepper161&count_private=true&include_all_commits=true&show_icons=true&title_color=8B5CF6&icon_color=A855F7r=C084FC&bg_color=0,0,0,0&hide_border=true" />
-</p>
-
-
-
-<!-- Profile Summary Cards -->
-<p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&theme=gotham" alt="Profile Details" />
-</p>
-
-<!-- GitHub Trophies -->
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Pepper161&theme=gitdimmed&no-frame=true&margin-w=10" alt="GitHub Trophies" />
-</p>
-
-
-
-
-
-
-
-## 🌱 Current Learning Journey
-
-- 📚 **Advanced AI/ML**: Exploring deeper integration of Large Language Models in applications
-- 🏗️ **Microservices Architecture**: Learning polyglot persistence and distributed systems
-- 🇯🇵 **Japanese Market Research**: Understanding consumer behavior and cultural nuances
-- ⚡ **Performance Optimization**: Frontend performance and serverless optimization techniques
-
-## 🎯 2025 Goals
-
-
-- [ ] Contribute to open-source AI/ML projects
-- [ ] Complete advanced machine learning coursework
-- [ ] Build a portfolio of AI-native applications
-- [ ] Explore opportunities in the Japanese tech market
-
-## 📫 Let's Connect!
-
-- 💼 **University**: University of Nottingham Malaysia
-- 📧 **Email**: [Contact me through GitHub](https://github.com/Pepper161)
-- 🔗 **EmotiGift Demo**: [emotigift-ai.vercel.app](https://emotigift-ai.vercel.app)
+Currently, I'm involved in:
+- **Locipe**: a recipe-based web product designed with scalability and cost-awareness
+- **Kopi Chat**: a student community platform, built with both development and operations in mind
 
 ---
 
-⭐ **"Building AI solutions that understand human emotions and cultural contexts"**
+## Projects
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Pepper161&color=8B5CF6&style=flat-square" alt="Profile Views" />
-</p>
+### Locipe
+[https://locipe.com/](https://locipe.com/)
 
-<!-- Wave Footer -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:C084FC,50:A855F7,100:8B5CF6&height=120&section=footer" />
+A recipe-based web product designed with a strong focus on real-world constraints.
+
+I'm responsible for the overall product design and implementation, including:
+- system and feature design
+- full-stack implementation
+- specification and behavior decisions
+- operational decision-making and cost-aware feature planning
+
+Rather than maximizing features, I prioritize stability, predictable costs, and maintainability, so the product can continue to run and evolve over time.
+
+### Kopi Chat
+[https://kopi-chat.com/](https://kopi-chat.com/)
+
+A community platform for students in Malaysia.
+
+My role covers:
+- application design and implementation
+- specification decisions for user-facing features
+- defining platform rules and moderation-related behaviors
+
+In this project, I focus on building systems that remain manageable as the number of users grows, balancing usability with operational simplicity.
+
+---
+
+## Tech Stack
+
+### Languages
+- JavaScript / TypeScript
+- Python
+- Java
+- C
+
+### Frontend
+- React
+- Next.js
+- Tailwind CSS
+
+### Backend / Infrastructure
+- Node.js
+- Serverless functions
+- Firebase / Firestore
+- PostgreSQL
+
+### Tools & Others
+- Git / GitHub
+- Vercel
+- Linux-based development environments
+
+---
+
+## Applied AI (Selective Use)
+
+In some parts of my projects, I work with AI-related features such as:
+- LLM-based text generation
+- image generation pipelines
+- prompt and output-structure design
+
+I treat AI as one of many tools and carefully consider cost, reliability, and operational impact before integrating it into a product.
+
+---
+
+## Current Focus
+
+- Building and operating early-stage products with real users
+- Improving design and implementation skills through practical development
+- Learning how technical decisions affect long-term maintainability
+
+I'm open to internships and opportunities where I can contribute to real products, especially in environments that value ownership and practical problem-solving.
+
+---
+
+## Contact
+
+- GitHub: [https://github.com/Pepper161](https://github.com/Pepper161)
