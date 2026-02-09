@@ -93,8 +93,8 @@ and operational impact before integrating it into a product.
 
 <!-- Self-hosted stats -->
 <p align="center">
-  <img src="https://pepper161.vercel.app/api?username=Pepper161&count_private=true&show_icons=true&include_all_commits=true&theme=gotham&hide_border=true&v=20260209b" alt="GitHub Stats" width="48%" />
-  <img src="https://pepper161.vercel.app/api/top-langs/?username=Pepper161&theme=gotham&hide_border=true&layout=compact&v=20260209b" alt="Top Languages" width="48%" />
+  <img src="https://pepper161.vercel.app/api?username=Pepper161&count_private=true&show_icons=true&include_all_commits=true&theme=gotham&hide_border=true&cache_seconds=1800&v=20260209c" alt="GitHub Stats" width="48%" />
+  <img src="https://pepper161.vercel.app/api/top-langs/?username=Pepper161&theme=gotham&hide_border=true&layout=compact&cache_seconds=1800&v=20260209c" alt="Top Languages" width="48%" />
 </p>
 
 <!-- Profile Summary Cards -->
