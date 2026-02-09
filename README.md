@@ -50,7 +50,7 @@ balancing usability with operational simplicity.
 <h2 align="center">💻 Skills</h2>
 <p align="center">
   <img alt="my skills"
-    src="https://skillicons.dev/icons?theme=dark&perline=12&i=py,r,js,react,nextjs,ts,astro,php,html,css,git,github,gitlab,docker,aws,cloudflare,mysql,firebase,supabase,vercel,wordpress,figma,apple,windows,linux,latex,npm,tailwindcss,pytorch,sklearn" />
+    src="https://skillicons.dev/icons?theme=dark&perline=12&i=py,js,react,nextjs,ts,php,html,css,git,github,docker,aws,mysql,firebase,supabase,vercel,figma,windows,linux,npm,tailwindcss,pytorch" />
 </p>
 
 ### Languages
