@@ -14,7 +14,7 @@ My interests span software development, team collaboration, and turning real pro
 マレーシアでComputer Scienceを学びながら、Webサービスの開発・運営に取り組んでいます。
 利用者の困りごとを捉えて仕組みにすることと、周囲が力を発揮できる進め方を考えることに関心があります。
 
-[Projects](#selected-projects) · [Technologies](#technologies) · [Current focus](#current-focus)
+[Projects](#selected-projects) · [Technologies](#technologies) · [Activity](#github-activity) · [Current focus](#current-focus)
 
 ## Selected projects
 
@@ -61,6 +61,16 @@ AIによる食材の識別とレシピの提案を組み合わせ、機能だけ
 - **Data & infrastructure** — Firebase / Firestore, PostgreSQL, Prisma, Vercel
 - **University & tooling** — Python, Java, C, Git / GitHub
 
+## GitHub activity
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&amp;theme=github_dark">
+  <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&amp;theme=github">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&amp;theme=github" width="100%" alt="Pepper161の過去1年間のGitHub活動。コントリビューションの推移とコミット・プルリクエスト等の内訳。">
+</picture>
+
+<sub>Live card by <a href="https://github.com/vn7n24fzkq/github-profile-summary-cards">GitHub Profile Summary Cards</a></sub>
+
 ## Current focus
 
 - **Development & handover** — Kopi Chatの改善と、後輩が開発を進めるための資料・手順の整備。
@@ -68,4 +78,4 @@ AIによる食材の識別とレシピの提案を組み合わせ、機能だけ
 - **Career interests** — 技術と開発経験を生かし、課題の特定から実行・定着まで関わるコンサルティング。
 
 <sub>University of Nottingham Malaysia · BSc (Hons) Computer Science · Expected July 2027</sub><br>
-<sub>Icons: <a href="https://github.com/tandpfun/skill-icons">Skill Icons</a> · <a href="third-party/skill-icons-LICENSE.txt">MIT license</a> · <a href="ASSETS.md">Asset credits</a></sub>
+<sub>Made with <a href="https://github.com/patch-gg/pixelfx">pixelfx</a>, <a href="https://github.com/showheyohtaki/motion-prompt">Motion Prompt</a> and <a href="https://github.com/tandpfun/skill-icons">Skill Icons</a> · <a href="ASSETS.md">Credits and licenses</a></sub>
