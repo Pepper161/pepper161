@@ -1,4 +1,6 @@
 <picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/header-still-dark.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="assets/header-still-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/header-light.svg">
   <img src="assets/header-light.svg" width="100%" alt="Kazuki Ichikawa — Computer Science at University of Nottingham Malaysia">

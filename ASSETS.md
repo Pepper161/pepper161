@@ -13,7 +13,7 @@ The hosted service does not expose its deployed commit. The source reference rec
 
 ## Profile headers and motion
 
-`assets/header-light.svg` and `assets/header-dark.svg` combine custom layout with two open-source references from Pepper161's starred repositories. Both SVGs contain their own images and CSS animations, without scripts or remote font/image requests. `prefers-reduced-motion: reduce` displays the complete title and a still ripple frame.
+`assets/header-light.svg` and `assets/header-dark.svg` combine custom layout with two open-source references from Pepper161's starred repositories. Both SVGs contain their own images and CSS animations, without scripts or remote font/image requests. The README's `picture` element selects `header-still-light.svg` or `header-still-dark.svg` when `prefers-reduced-motion: reduce` is set. These variants contain no animations and display the complete title with one ripple frame. The animated SVGs also include a reduced-motion media rule as a secondary fallback.
 
 ### pixelfx
 
