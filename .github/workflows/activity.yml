@@ -1,0 +1,38 @@
+name: Update fixed-scale activity
+
+on:
+  schedule:
+    - cron: '17 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fixed-scale-activity
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check parser and fixed thresholds
+        run: python -m unittest discover -s scripts -p 'test_generate_activity.py'
+      - name: Generate public profile activity
+        run: python scripts/generate_activity.py
+      - name: Publish updated SVGs
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/activity-fixed-light.svg assets/activity-fixed-dark.svg
+          if git diff --cached --quiet; then
+            echo 'Activity images are already current.'
+            exit 0
+          fi
+          git commit -m 'chore: refresh fixed-scale activity'
+          git push

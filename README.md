@@ -65,6 +65,16 @@ AIによる食材の識別とレシピの提案を組み合わせ、機能だけ
 
 ## GitHub activity
 
+<!-- fixed-scale-activity:start -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/activity-fixed-dark.svg">
+  <img src="assets/activity-fixed-light.svg" width="100%" alt="Pepper161の公開GitHub活動。色は1〜2件、3〜5件、6〜10件、11件以上の固定基準で表示されます。">
+</picture>
+
+<sub>公開プロフィールに表示される活動数を毎日更新。色の基準は固定のため、活動が突出した日があっても他の日の濃さは変わりません。表示期間はUTC日付で更新。<a href="scripts/generate_activity.py">生成スクリプト</a></sub>
+<!-- fixed-scale-activity:end -->
+
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&amp;theme=github_dark">
   <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Pepper161&amp;theme=github">
@@ -81,3 +91,4 @@ AIによる食材の識別とレシピの提案を組み合わせ、機能だけ
 
 <sub>University of Nottingham Malaysia · BSc (Hons) Computer Science · Expected July 2027</sub><br>
 <sub>Made with <a href="https://github.com/patch-gg/pixelfx">pixelfx</a>, <a href="https://github.com/showheyohtaki/motion-prompt">Motion Prompt</a> and <a href="https://github.com/tandpfun/skill-icons">Skill Icons</a> · <a href="ASSETS.md">Credits and licenses</a></sub>
+
